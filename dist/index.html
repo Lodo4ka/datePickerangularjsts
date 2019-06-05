@@ -5,14 +5,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <script src="./node_modules/angular/angular.js"></script>
-  <script src="./script.js"></script>
   <title>AngularDatepicker</title>
 </head>
 
-<body>
-  <heros></heros>
+<body ng-controller="mainCtrl as main">
+  <h1>Hello</h1>
+  <input type="text" ng-model="main.something">
+  <p>output {{main.something}}</p>
 
+  <script src="bundle.js" charset="utf-8"></script>
 </body>
 
 </html>
