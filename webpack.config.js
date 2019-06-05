@@ -1,28 +1,42 @@
 const path = require('path');
 
 module.exports = {
-  entry: './src/app.ts',
-  mode: 'development',
-  devtool: 'inline-source-map',
-  devServer: {
-    contentBase: path.join(__dirname, 'dist'),
-    compress: true,
-    port: 9000,
-  },
-  module: {
-    rules: [
-      {
-        test: /\.tsx?$/,
-        use: 'ts-loader',
-        exclude: /node_modules/,
-      },
-    ],
-  },
-  resolve: {
-    extensions: ['.tsx', '.ts', '.js'],
-  },
-  output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist'),
-  },
+    context: path.resolve(__dirname, './src'),
+    entry: ['./app.ts'],
+    output: {
+        path: path.resolve(__dirname, './dist'),
+        filename: 'app.bundle.js'
+    },
+    resolve: {
+        extensions: ['.ts', '.js']
+    },
+    //devtool: 'source-map',
+
+    module: {
+        rules: [{
+                test: /\.tsx?$/,
+                loader: 'ts-loader'
+            },
+            {
+                test: /\.html$/,
+                use: [{
+                        loader: 'ngtemplate-loader?relativeTo=' + (path.resolve(__dirname, './src'))
+                    },
+                    {
+                        loader: 'html-loader'
+                    }
+                ]
+            },
+            {
+                test: /\.scss$/,
+                loaders: ['style-loader', 'css-loader', 'sass-loader']
+            },
+            {
+                test: /\.(ttf|otf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
+                loader: 'file-loader?name=assets/[name].[ext]'
+            },
+        ]
+    },
+
+    //plugins: [new BundleAnalyzerPlugin()]
 };
